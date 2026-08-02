@@ -649,25 +649,34 @@
                 <div class="contact__content">
                     <h3 class="contact__title contact__title-form">Write Me your Message</h3>
 
-                    <form action="" class="contact__form">
+                    <form id="contact-form" action="" class="contact__form">
+                        <input type="checkbox" name="botcheck" class="contact__form-honeypot" tabindex="-1"
+                            autocomplete="off">
+
                         <div class="contact__form-div">
-                            <label for="" class="contact__form-tag">Name</label>
-                            <input type="text" placeholder="Enter name" class="contact__form-input">
+                            <label for="contact-name" class="contact__form-tag">Name</label>
+                            <input type="text" id="contact-name" name="name" placeholder="Enter name"
+                                class="contact__form-input" required>
                         </div>
 
                         <div class="contact__form-div">
-                            <label for="" class="contact__form-tag">Mail</label>
-                            <input type="text" placeholder="Enter email" class="contact__form-input">
+                            <label for="contact-email" class="contact__form-tag">Mail</label>
+                            <input type="email" id="contact-email" name="email" placeholder="Enter email"
+                                class="contact__form-input" required>
                         </div>
 
                         <div class="contact__form-div contact__form-area">
-                            <label for="" class="contact__form-tag">Message</label>
-                            <textarea name="" id="" cols="30" rows="10" placeholder="Write your Message"
-                                class="contact__form-input "></textarea>
+                            <label for="contact-message" class="contact__form-tag">Message</label>
+                            <textarea name="message" id="contact-message" cols="30" rows="10"
+                                placeholder="Write your Message" class="contact__form-input " required></textarea>
                         </div>
 
+                        <input type="hidden" name="access_key" value="064a1d35-cddf-4aa9-8797-afcdc9ee805d">
+                        <input type="hidden" name="subject" value="New message from portfolio contact form">
 
-                        <button class="button">
+                        <p class="contact__form-status" aria-live="polite"></p>
+
+                        <button type="submit" class="button contact__form-button">
                             Send Message
                         </button>
                     </form>

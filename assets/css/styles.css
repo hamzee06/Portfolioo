@@ -883,6 +883,34 @@ body.light-theme {
 .contact__form-area textarea {
   resize: none;
 }
+
+.contact__form-honeypot {
+  display: none;
+}
+
+.contact__form-button {
+  display: block;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  text-align: center;
+}
+
+.contact__form-status {
+  min-height: 1.25rem;
+  margin-bottom: 1rem;
+  font-size: var(--small-font-size);
+  text-align: center;
+}
+
+.contact__form-status--success {
+  color: #2fae5c;
+}
+
+.contact__form-status--error {
+  color: #e0433d;
+}
 /*=============== FOOTER ===============*/
 .footer {
   background-color: var(--first-color);
