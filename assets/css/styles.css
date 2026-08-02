@@ -71,6 +71,17 @@ html {
   scroll-behavior: smooth;
 }
 
+/* FIX: stop the page from scrolling sideways on phones.
+   Fixed-position elements (header, bottom nav) are NOT clipped
+   by a parent's `overflow:hidden`, only by html/body's own overflow,
+   so this has to live here, not just on .main */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body,
 button,
 input,
@@ -185,9 +196,12 @@ body.light-theme {
 }
 /*=============== REUSABLE CSS CLASSES ===============*/
 .container {
+  width: 100%;
   max-width: 968px;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .grid {
@@ -249,15 +263,25 @@ body.light-theme {
   color: var(--first-color-alt);
 }
 
+/* FIX: this is the pill-shaped bottom nav bar. It had no left/right,
+   so on a fixed-position element that means "stay wherever it would've
+   landed in normal flow" — which is why it drifted off-center and the
+   last icon got clipped on the right edge. Centering it explicitly
+   with left/right/margin fixes that on every screen size. */
 .nav__menu {
   position: fixed;
+  left: 0;
+  right: 0;
   bottom: 1rem;
+  margin: 0 auto;
   background-color: hsla(var(--second-hue), 32%, 16%, 0.8);
   width: 90%;
+  max-width: 328px;
   border-radius: 4rem;
-  padding: 1rem 2.25rem;
+  padding: 1rem 1.5rem;
   backdrop-filter: blur(10px);
   transition: 0.4s;
+  pointer-events: none;
 }
 
 .nav__list {
@@ -275,6 +299,7 @@ body.light-theme {
   transition: 0.4s;
   display: flex;
   border-radius: 5rem;
+  pointer-events: auto;
 }
 
 /* Active link */
@@ -437,9 +462,15 @@ body.light-theme {
   transform: rotate(90deg) translate(16px, 4px);
 }
 
+/* FIX: `right: -1.5rem` deliberately pushes this element outside its
+   container's right edge. On desktop that's fine because there's extra
+   page width to spare, but on a 412px phone it's exactly what was adding
+   the extra horizontal scroll room. Keep it flush on mobile, and only
+   let it hang past the edge on large screens (restored in the 992px
+   breakpoint below). */
 .home__scroll {
   color: var(--first-color);
-  right: -1.5rem;
+  right: 0;
   bottom: 4rem;
   display: grid;
   row-gap: 2.25rem;
@@ -630,6 +661,8 @@ body.light-theme {
   padding: 4.5rem 1.5rem 2.5rem;
   border-radius: 1.5rem;
   position: relative;
+  width: 100%;
+  max-width: 100%;
 }
 
 .services__modal-title,
@@ -695,6 +728,7 @@ body.light-theme {
   align-items: center;
   column-gap: 0.75rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
 .work__item {
@@ -784,7 +818,7 @@ body.light-theme {
 /*=============== CONTACT ===============*/
 .contact__container {
   row-gap: 3rem;
-  padding-bottom: 6rem;
+  padding-bottom: 3rem;
 }
 
 .contact__title {
@@ -936,6 +970,8 @@ body.light-theme {
   align-items: center;
   column-gap: 1.5rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
+  row-gap: 0.5rem;
 }
 
 .footer__social {
@@ -1046,13 +1082,6 @@ body.light-theme {
 
 /* For medium devices */
 @media screen and (min-width: 630px) {
-  .nav__menu {
-    width: 328px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-  }
-
   .about__info {
     grid-template-columns: repeat(3, 180px);
     justify-content: center;
@@ -1128,31 +1157,7 @@ body.light-theme {
   .contact__form {
     width: 340px;
   }
-  /* .contact__info {
-    grid-template-columns: 350px;
-    justify-content: center;
-  }
-
-  .contact__form {
-    width: 360px;
-    margin: 0 auto;
-  } */
 }
-
-/* @media screen and (min-width: 767px) {
-  /* .work__container {
-    grid-template-columns: repeat(2, max-content);
-  } */
-
-/* .contact__info {
-    grid-template-columns: 300px;
-  }
-
-  .contact__container {
-    grid-template-columns: repeat(2, 325px);
-    justify-content: center;
-  }
-} */
 
 /* For large devices */
 @media screen and (min-width: 992px) {
@@ -1171,6 +1176,12 @@ body.light-theme {
 
   .nav {
     height: calc(var(--header-height) + 1rem);
+  }
+
+  /* restore the wider pill nav + the intentional overhang on
+     .home__scroll now that there's enough room for it */
+  .nav__menu {
+    width: 328px;
   }
 
   .home__handle {
@@ -1193,6 +1204,10 @@ body.light-theme {
 
   .home__social::after {
     transform: rotate(90deg) translate(16px, -1px);
+  }
+
+  .home__scroll {
+    right: -1.5rem;
   }
 
   .home__scroll-icon {
