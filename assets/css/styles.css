@@ -784,7 +784,7 @@ body.light-theme {
 /*=============== CONTACT ===============*/
 .contact__container {
   row-gap: 3rem;
-  padding-bottom: 3rem;
+  padding-bottom: 6rem;
 }
 
 .contact__title {
@@ -877,7 +877,7 @@ body.light-theme {
 }
 
 .contact__form-area {
-  height: 17rem;
+  height: 12rem;
 }
 
 .contact__form-area textarea {
@@ -1281,7 +1281,7 @@ body.light-theme {
   }
 
   .contact__form-area {
-    height: 18rem;
+    height: 13rem;
   }
 
   .contact__container {
